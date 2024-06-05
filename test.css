@@ -1,0 +1,46 @@
+header {
+    background-color: #fff;
+    padding: 20px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #000;
+  }
+  
+  .search-bar {
+    margin-right: 20px;
+  }
+  
+  .user-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-actions a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #000;
+  }

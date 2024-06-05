@@ -20,6 +20,6 @@
   .flex-item--1 {
     grid-area: sidebar;
   }
-  .flex-item--3 {
+  .flex-item--2 {
     grid-area: footer;
   }

@@ -1,0 +1,40 @@
+body {
+    color: #64403E;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+.MyHeaderCon {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+.MyHeaderIt {
+    padding: 30px
+    
+}
+
+.MyFooter{
+    background-color: #714947;
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.MyBody {
+    margin: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;  
+}
+
+.MyText {
+    margin: 30px;
+    display: block;
+}

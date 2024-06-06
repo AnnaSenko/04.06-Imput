@@ -57,9 +57,6 @@ body {
 .MyGallery {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-}
-.MyPhoto {
-    width= 250px;
-    height= 250px;
+    justify-content: space-between;
+    margin: 120px;
 }

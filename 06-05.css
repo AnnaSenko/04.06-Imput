@@ -53,3 +53,13 @@ body {
   width: 120px;
   padding: 10px;
 }
+
+.MyGallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.MyPhoto {
+    width= 250px;
+    height= 250px;
+}

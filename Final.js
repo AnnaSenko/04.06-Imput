@@ -37,24 +37,42 @@ function addTracksToPage(tracks) {
     const li = document.createElement("li");
     li.classList.add("list-item");
 
-    // Create a span that holds the album name
+    // Створення span, який містить назву альбому
     li.innerHTML = `<span class="album">Album: ${track.track.album.name}</span>`;
 
-    console.log("track.track.album.name: ", track.track.album.name);
     if (track.track.album.name === "Ouest Side") {
       li.classList.add("highlighted");
     }
 
-    // Create another span that holds the track name
+    // Створення span, який містить назву треку
     const trackSpan = document.createElement("span");
-    trackSpan.textContent = `Track: ${track.track.name}`;
+    trackSpan.textContent = `${track.track.name}`;
     trackSpan.classList.add("song");
     li.appendChild(trackSpan);
 
+    // Створення span для часу пісні
+    const durationSpan = document.createElement("span");
+    durationSpan.textContent = formatDuration(track.track.duration_ms);
+    durationSpan.classList.add("duration");
+    li.appendChild(durationSpan);
+
+    // Створення кнопки "Add"
+    const addButton = document.createElement("button");
+    addButton.textContent = "Add";
+    addButton.classList.add("add-button");
+    li.appendChild(addButton);
+
     ul.appendChild(li);
   });
+
   container.appendChild(ul);
 }
+
+// Форматування часу треку з мс в хвилини та секунди
+function formatDuration(duration_ms) {
+  const minutes = Math.floor(duration_ms / 6000);
+  const seconds = ((duration_ms % 6000) / 1000).toFixed(0);
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
 function fetchAccessToken() {
   fetch("https://accounts.spotify.com/api/token", {
@@ -75,5 +93,5 @@ function fetchAccessToken() {
       console.error("Error:", error);
     });
 }
-
+}
 fetchAccessToken();

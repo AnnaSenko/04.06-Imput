@@ -1,11 +1,11 @@
-body {
+* {
     font-family: 'Lexend', sans-serif;
 }
 
 
 #main {
-    margin-left: 40vw;
     padding: 20px;
+    margin-left: 100px;
 }
 
 .background {
@@ -20,7 +20,7 @@ body {
   
 .playlist h1 {
     text-align: left;
-    margin: 70px 0 80px 80px;
+    margin: 70px 0 50px 0;
     font-size: 40px;
 }
 
@@ -50,10 +50,9 @@ body {
 }
 
 .track-info .name {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     color: #6320EE;
-    padding-right: 30px;
 }
 
 .track-info .album {
@@ -64,6 +63,7 @@ body {
 .track-info .time {
     font-size: 12px;
     color: #999;
+    align-items: flex-end;
 }
 
 .track-info .plays {
@@ -71,17 +71,19 @@ body {
     color: #999;
 }
 
-.track-info .add {
-    font-size: 12px;
-    color: #999;
-}
-
 .track-info .like {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 43px;
+    align-items: flex-end;
 }
 
 .lineSong{
     display: inline;
     flex-direction: row;
+}
+.content {
+    display: flex;
+}
+.left {
+    flex: 0 1 50%;
 }

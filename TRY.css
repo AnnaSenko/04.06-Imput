@@ -5,7 +5,6 @@
 
 #main {
     padding: 20px;
-    margin-left: 100px;
 }
 
 .background {
@@ -20,7 +19,6 @@
   
 .playlist h1 {
     text-align: left;
-    margin: 50px 0;
     font-size: 40px;
 }
 
@@ -84,18 +82,34 @@
 .content {
     display: flex;
 }
-.left {
-    flex: 0 1 40%;
-    margin-left: 150px;
-    
+.right {
+    flex: 0 1 45%;
+    margin-top: 160px;
+    margin-left: 700px;
 }
+
+.left.current-track {
+    position: fixed;
+    top: 50px; /* Можете змінити це значення відповідно до ваших потреб */
+    left: 190px; /* Можете змінити це значення відповідно до ваших потреб */
+    width: 500px; /* Фіксуємо ширину, щоб зображення залишалось в межах контейнера */
+    z-index: 1000; /* Щоб елемент був над іншими елементами */
+}
+
 .fotoAlbum{
-    width: 370px;
-    height: 370px;
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
     text-align: center;
 }
 .playerTrack {
-    margin-top: 20px;
-    width: 370px;
-    height: 148px;
+    margin-top: 40px;
+    width: 300px;
+    height: 74.35px;
+    text-align: center;
 }
+
+.highlighted {
+    border-radius: 10px;
+    background-color: #F9CFF2;
+  }

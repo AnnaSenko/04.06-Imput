@@ -33,23 +33,23 @@ function addTracksToPage(tracks) {
   const container = document.querySelector('[data-js="tracks"]');
 
   tracks.forEach((item, index) => {
-      const track = item.track;
-      const trackElement = document.createElement('div');
-      trackElement.classList.add('track');
+    const track = item.track;
+    const trackElement = document.createElement('div');
+    trackElement.classList.add('track');
 
-      trackElement.innerHTML = `
-      <img src="${track.album.images[0].url}" alt="Album Art">
-          <div class="track-info">
-            <div class="album">${track.album.name}</div>
-             <div class="song">
-                  <div class="name">${track.name}</div>
-                  <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
-             </div> 
-          </div>
-      <img src="./frame.png" class="like" alt="Like">
-      `;
+    trackElement.innerHTML = `
+      <img src="./play.png" alt="Play Icon" data-original-src="${track.album.images[0].url}">
+      <div class="track-info">
+        <div class="album">${track.album.name}</div>
+        <div class="song">
+          <div class="name">${track.name}</div>
+          <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
+        </div> 
+      </div>
+      <img src="./star.png" class="like" alt="Like">
+    `;
 
-      container.appendChild(trackElement);
+    container.appendChild(trackElement);
   });
 
   listenForClick();
@@ -57,18 +57,43 @@ function addTracksToPage(tracks) {
 
 function listenForClick() {
   const items = document.querySelectorAll('.track');
+  let imageChanged = false;
 
   items.forEach((item, index) => {
     item.addEventListener("click", (event) => {
-      const trackImage = event.currentTarget.querySelector('.track img').src;
+      const trackImage = event.currentTarget.querySelector('img[data-original-src]').dataset.originalSrc;
       const currentTrackImageElement = document.querySelector('[data-js="current"] img');
-      
-      // Змінюємо зображення поточного треку на зображення треку, на який клікнули
+
       currentTrackImageElement.src = trackImage;
+
+      if (!imageChanged) {
+        const playerImage = document.querySelector('.playerTrack');
+        if (playerImage.src.includes('nomusic.png')) {
+          playerImage.src = './music.png';
+          imageChanged = true;
+        }
+      }
+    });
+  });
+
+  listenForLikeClick();
+}
+
+
+function listenForLikeClick() {
+  const likeButtons = document.querySelectorAll('.like');
+
+  likeButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      if (event.target.src.includes('star.png')) {
+        event.target.src = './frame.png';
+      } else {
+        event.target.src = './star.png';
+      }
     });
   });
 }
-
 
 function fetchAccessToken() {
     fetch("https://accounts.spotify.com/api/token", {

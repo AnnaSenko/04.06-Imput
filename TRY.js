@@ -1,23 +1,31 @@
 const SPOTIFY_CLIENT_ID = "67b411e20d594f30bf7a8d3bbde54285";
 const SPOTIFY_CLIENT_SECRET = "161fc5e3df004b95af3ba8c62f3eaf54";
 const PLAYLIST_ID = "7fXKDSXrj7RljWC4QTixrd";
-const container = document.querySelector('div[data-js="tracks"]'); 
+const container = document.querySelector('div[data-js="tracks"]');
 
 function fetchPlaylist(token, playlistId) {
-    fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
-        method: "GET",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    })
+  console.log("token: ", token);
+
+  fetch(`https://api.spotify.com/v1/playlists/${PLAYLIST_ID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => response.json())
     .then((data) => {
-        if (data.tracks && data.tracks.items) {
-            addTracksToPage(data.tracks.items);
-        }
+      console.log(data);
+
+      if (data.tracks && data.tracks.items) {
+        data.tracks.items.forEach((item) => {
+          console.log(item.track.name);
+        });
+
+        addTracksToPage(data.tracks.items);
+      }
     })
     .catch((error) => {
-        console.error("Error:", error);
+      console.error("Error:", error);
     });
 }
 
@@ -30,15 +38,16 @@ function addTracksToPage(tracks) {
         trackElement.classList.add('track');
 
         trackElement.innerHTML = `
-            <img src="${track.album.images[0].url}" alt="Album Art">
+        <img src="./play.png" alt="Album Art">
+
             <div class="track-info">
               <div class="album">${track.album.name}</div>
-                <div class="lineSong">
+               <div class="song">
                     <div class="name">${track.name}</div>
                     <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
-                    <div class="plays">${track.popularity}k</div>
                     <div class="add"><button>Add</button></div>
-                </div>
+                    <img scr="./Vector.png" alt="Like">
+               </div> 
             </div>
         `;
 

@@ -61,10 +61,32 @@ function listenForClick() {
 
   items.forEach((item, index) => {
     item.addEventListener("click", (event) => {
-      const trackImage = event.currentTarget.querySelector('img[data-original-src]').dataset.originalSrc;
+      // Знімаємо виділення з усіх треків
+      items.forEach(track => track.classList.remove('highlighted'));
+
+      // Виділяємо натиснутий трек
+      item.classList.add('highlighted');
+
+      const trackImageElement = item.querySelector('img[data-original-src]');
       const currentTrackImageElement = document.querySelector('[data-js="current"] img');
 
-      currentTrackImageElement.src = trackImage;
+      currentTrackImageElement.src = trackImageElement.dataset.originalSrc;
+
+      // Змінюємо фото play.png на wave.png
+      const playIcon = item.querySelector('img[src="./play.png"]');
+      if (playIcon) {
+        playIcon.src = './wave.png';
+      }
+
+      // Якщо інше зображення вже змінене, повертаємо його назад
+      items.forEach(track => {
+        if (track !== item) {
+          const otherPlayIcon = track.querySelector('img[src="./wave.png"]');
+          if (otherPlayIcon) {
+            otherPlayIcon.src = './play.png';
+          }
+        }
+      });
 
       if (!imageChanged) {
         const playerImage = document.querySelector('.playerTrack');

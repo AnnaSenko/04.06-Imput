@@ -20,7 +20,7 @@
   
 .playlist h1 {
     text-align: left;
-    margin: 70px 0 50px 0;
+    margin: 50px 0;
     font-size: 40px;
 }
 
@@ -85,5 +85,17 @@
     display: flex;
 }
 .left {
-    flex: 0 1 50%;
+    flex: 0 1 40%;
+    margin-left: 150px;
+    
+}
+.fotoAlbum{
+    width: 370px;
+    height: 370px;
+    text-align: center;
+}
+.playerTrack {
+    margin-top: 20px;
+    width: 370px;
+    height: 148px;
 }

@@ -30,30 +30,45 @@ function fetchPlaylist(token, playlistId) {
 }
 
 function addTracksToPage(tracks) {
-    const container = document.querySelector('[data-js="tracks"]');
+  const container = document.querySelector('[data-js="tracks"]');
 
-    tracks.forEach((item, index) => {
-        const track = item.track;
-        const trackElement = document.createElement('div');
-        trackElement.classList.add('track');
+  tracks.forEach((item, index) => {
+      const track = item.track;
+      const trackElement = document.createElement('div');
+      trackElement.classList.add('track');
 
-        trackElement.innerHTML = `
-        <img src="./play.png" alt="Album Art">
+      trackElement.innerHTML = `
+      <img src="${track.album.images[0].url}" alt="Album Art">
+          <div class="track-info">
+            <div class="album">${track.album.name}</div>
+             <div class="song">
+                  <div class="name">${track.name}</div>
+                  <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
+             </div> 
+          </div>
+      <img src="./frame.png" class="like" alt="Like">
+      `;
 
-            <div class="track-info">
-              <div class="album">${track.album.name}</div>
-               <div class="song">
-                    <div class="name">${track.name}</div>
-                    <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
-                    <div class="add"><button>Add</button></div>
-                    <img scr="./Vector.png" alt="Like">
-               </div> 
-            </div>
-        `;
+      container.appendChild(trackElement);
+  });
 
-        container.appendChild(trackElement);
-    });
+  listenForClick();
 }
+
+function listenForClick() {
+  const items = document.querySelectorAll('.track');
+
+  items.forEach((item, index) => {
+    item.addEventListener("click", (event) => {
+      const trackImage = event.currentTarget.querySelector('.track img').src;
+      const currentTrackImageElement = document.querySelector('[data-js="current"] img');
+      
+      // Змінюємо зображення поточного треку на зображення треку, на який клікнули
+      currentTrackImageElement.src = trackImage;
+    });
+  });
+}
+
 
 function fetchAccessToken() {
     fetch("https://accounts.spotify.com/api/token", {

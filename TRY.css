@@ -13,7 +13,15 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: -2;
+}
+
+.background-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+     /* z-index: -1; Забезпечуємо, що фон буде нижче з іншими елементами */
 }
 
 .playlist h1 {
@@ -86,13 +94,13 @@
 
 .right {
     flex: 0 1 45%;
-    margin-top: 110px;
+    margin-top: 160px;
     margin-left: 700px;
 }
 
 .left.current-track {
     position: fixed;
-    top: 50px; 
+    top: 80px; 
     left: 190px; 
     width: 380px; 
     z-index: 1000; 
@@ -101,7 +109,7 @@
 .fotoAlbum {
     width: 300px;
     height: 300px;
-    margin-top: 50px;
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -147,3 +155,35 @@
     border-radius: 10px;
     background-color: #F9CFF2;
 }
+.notifications {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.notifications .icon {
+    width: 25px;
+    height: 25px;
+}
+
+.notifications .bell {
+    width: 23px;
+    height: 23px;
+}
+
+.notifications .search {
+    width: 238.85px;
+    height: 20px;
+    margin-right: 390px;
+}
+
+.notifications .logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 640px;
+}
+

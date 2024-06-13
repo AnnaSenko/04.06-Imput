@@ -6,7 +6,7 @@ const container = document.querySelector('div[data-js="tracks"]');
 function fetchPlaylist(token, playlistId) {
   console.log("token: ", token);
 
-  fetch(`https://api.spotify.com/v1/playlists/${PLAYLIST_ID}`, {
+  fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -76,6 +76,7 @@ function listenForClick() {
       const playIcon = item.querySelector('img[src="./play.png"]');
       if (playIcon) {
         playIcon.src = './wave.png';
+        playIcon.classList.add('animated-wave');
       }
 
       // Якщо інше зображення вже змінене, повертаємо його назад
@@ -84,16 +85,29 @@ function listenForClick() {
           const otherPlayIcon = track.querySelector('img[src="./wave.png"]');
           if (otherPlayIcon) {
             otherPlayIcon.src = './play.png';
+            otherPlayIcon.classList.remove('animated-wave');
           }
         }
       });
 
+      // Змінюємо фото nomusic.png на music.png
       if (!imageChanged) {
         const playerImage = document.querySelector('.playerTrack');
         if (playerImage.src.includes('nomusic.png')) {
           playerImage.src = './music.png';
           imageChanged = true;
         }
+      }
+
+      // Змінюємо фото noplay.png на play.png і nopause.png на pause.png
+      const playButtonImage = document.querySelector('[data-js="play"] img');
+      const pauseButtonImage = document.querySelector('[data-js="pause"] img');
+
+      if (playButtonImage.src.includes('noplay.png')) {
+        playButtonImage.src = './play.png';
+      }
+      if (pauseButtonImage.src.includes('nopause.png')) {
+        pauseButtonImage.src = './pause.png';
       }
     });
   });
@@ -149,4 +163,4 @@ playButton.addEventListener("click", () => {
 
 pauseButton.addEventListener("click", () => {
   audio.pause();
-}); 
+});

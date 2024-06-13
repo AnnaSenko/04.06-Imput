@@ -159,8 +159,27 @@ const pauseButton = document.querySelector("[data-js='pause']");
 
 playButton.addEventListener("click", () => {
   audio.play();
+  startWaveAnimation();
 });
 
 pauseButton.addEventListener("click", () => {
   audio.pause();
+  stopWaveAnimation();
 });
+
+function startWaveAnimation() {
+  const currentTrack = document.querySelector('.highlighted');
+  if (currentTrack) {
+    const playIcon = currentTrack.querySelector('img[src="./wave.png"]');
+    if (playIcon) {
+      playIcon.classList.add('animated-wave');
+    }
+  }
+}
+
+function stopWaveAnimation() {
+  const animatedIcons = document.querySelectorAll('.animated-wave');
+  animatedIcons.forEach(icon => {
+    icon.classList.remove('animated-wave');
+  });
+}

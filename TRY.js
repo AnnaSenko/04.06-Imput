@@ -57,7 +57,7 @@ function addTracksToPage(tracks) {
 
 function listenForClick() {
   const items = document.querySelectorAll('.track');
-  let imageChanged = false;
+  let currentBall = null;
 
   items.forEach((item, index) => {
     item.addEventListener("click", (event) => {
@@ -91,13 +91,25 @@ function listenForClick() {
       });
 
       // Змінюємо фото nomusic.png на music.png
-      if (!imageChanged) {
-        const playerImage = document.querySelector('.playerTrack');
-        if (playerImage.src.includes('nomusic.png')) {
-          playerImage.src = './music.png';
-          imageChanged = true;
-        }
+      const playerImage = document.querySelector('.playerTrack');
+      if (playerImage.src.includes('nomusic.png')) {
+        playerImage.src = './music.png';
       }
+
+      // Зупиняємо поточну анімацію та видаляємо м'яч
+      if (currentBall) {
+        stopBallAnimation(currentBall);
+        currentBall.remove();
+      }
+
+      // Додаємо нову анімацію ball.png
+      currentBall = document.createElement('img');
+      currentBall.src = './ball.png';
+      currentBall.classList.add('moving-ball');
+      playerImage.parentElement.appendChild(currentBall);
+
+      // Запуск нової анімації
+      startBallAnimation(currentBall);
 
       // Змінюємо фото noplay.png на play.png і nopause.png на pause.png
       const playButtonImage = document.querySelector('[data-js="play"] img');
@@ -119,6 +131,33 @@ function listenForClick() {
   });
 
   listenForLikeClick();
+}
+
+function startBallAnimation(ball, startPosition = 0) {
+  const playerImage = document.querySelector('.playerTrack');
+  const maxPosition = playerImage.clientWidth - 10; // враховуючи розмір ball.png
+
+  let position = startPosition;
+  ball.style.left = `${position}px`;
+
+  const animationInterval = setInterval(() => {
+    position += 10; // змінено на 10 пікселів
+    if (position > maxPosition) {
+      position = 0;
+    }
+    ball.style.left = `${position}px`;
+    ball.dataset.currentPosition = position; // Оновлюємо поточну позицію
+  }, 1000);
+
+  // Збережемо інтервал для подальшого очищення
+  ball.dataset.animationInterval = animationInterval;
+}
+
+function stopBallAnimation(ball) {
+  if (ball) {
+    clearInterval(ball.dataset.animationInterval);
+    ball.dataset.animationInterval = '';
+  }
 }
 
 function listenForLikeClick() {
@@ -166,11 +205,28 @@ const pauseButton = document.querySelector("[data-js='pause']");
 playButton.addEventListener("click", () => {
   audio.play();
   startWaveAnimation();
+
+  // Продовження анімації м'яча
+  const ball = document.querySelector('.moving-ball');
+  if (ball) {
+    const currentPosition = parseInt(ball.dataset.currentPosition, 10) || 0;
+    const animationInterval = ball.dataset.animationInterval;
+    if (!animationInterval) {
+      startBallAnimation(ball, currentPosition);
+    }
+  }
 });
 
 pauseButton.addEventListener("click", () => {
   audio.pause();
   stopWaveAnimation();
+
+  // Зупинка анімації м'яча
+  const ball = document.querySelector('.moving-ball');
+  if (ball) {
+    clearInterval(ball.dataset.animationInterval);
+    ball.dataset.animationInterval = '';
+  }
 });
 
 function startWaveAnimation() {

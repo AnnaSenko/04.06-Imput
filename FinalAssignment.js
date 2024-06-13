@@ -85,43 +85,41 @@ function listenForClick() {
         }
       });
 
-      // Змінюємо фото nomusic.png на music.png
-      const playerImage = document.querySelector('.playerTrack');
+      const playerImage = document.querySelector('.playerTrack');// Change the photo nomusic.png to music.png
       if (playerImage.src.includes('nomusic.png')) {
         playerImage.src = './music.png';
       }
 
-      // Зупиняємо поточну анімацію та видаляємо м'яч
+      // Stops the animation of the current ball and removes it from the DOM.
       if (currentBall) {
         stopBallAnimation(currentBall);
         currentBall.remove();
       }
 
-      // Додаємо нову анімацію ball.png
+      // Creates a new ball and adds it to the DOM.
       currentBall = document.createElement('img');
       currentBall.src = './ball.png';
-      currentBall.classList.add('moving-ball');
+      currentBall.classList.add('moving-ball'); 
       playerImage.parentElement.appendChild(currentBall);
 
-      // Запуск нової анімації
+      // Starts the animation of a new ball.
       startBallAnimation(currentBall);
 
-      // Змінюємо фото noplay.png на play.png і nopause.png на pause.png
       const playButtonImage = document.querySelector('[data-js="play"] img');
       const pauseButtonImage = document.querySelector('[data-js="pause"] img');
 
-      if (playButtonImage.src.includes('noplay.png')) {
+      if (playButtonImage.src.includes('noplay.png')) { // Change the photo noplay.png to play.png and nopause.png to pause.png      
         playButtonImage.src = './play.png';
       }
       if (pauseButtonImage.src.includes('nopause.png')) {
         pauseButtonImage.src = './pause.png';
       }
 
-      // Почати програвання аудіо з початку
+      // Selects an audio source and starts playback.
       const audio = document.querySelector("[data-js='current-track']");
       audio.src = "https://p.scdn.co/mp3-preview/398665ccd5df24f5b67d2cd96f7ad8586ad8632a?cid=67b411e20d594f30bf7a8d3bbde54285";
       audio.play();
-      startWaveAnimation();
+      startWaveAnimation(); // Starts the wave animation for the current track.
     });
   });
 
@@ -129,38 +127,37 @@ function listenForClick() {
 }
 
 function startBallAnimation(ball, startPosition = 0) {
-  const playerImage = document.querySelector('.playerTrack');
-  const maxPosition = playerImage.clientWidth - 10; // враховуючи розмір ball.png
+  const playerImage = document.querySelector('.playerTrack'); //Find an element with the .playerTrack class in the DOM and store it in the playerImage variable to calculate the maximum position of the ball.
+  const maxPosition = playerImage.clientWidth - 10; // Calculating the maximum ball position given the size
 
   let position = startPosition;
-  ball.style.left = `${position}px`;
+  ball.style.left = `${position}px`; // Setting the styles of the ball element, which determines its horizontal position on the page. 
 
-  const animationInterval = setInterval(() => {
-    position += 10; // змінено на 10 пікселів
+  const animationInterval = setInterval(() => { // the function is run once per defined interval
+    position += 5; // changed by 10 pixels
     if (position > maxPosition) {
       position = 0;
     }
-    ball.style.left = `${position}px`;
-    ball.dataset.currentPosition = position; // Оновлюємо поточну позицію
-  }, 1000);
+    ball.style.left = `${position}px`; //Update styles to show the updated position on the page.
+    ball.dataset.currentPosition = position; 
+  }, 500);
 
-  // Збережемо інтервал для подальшого очищення
-  ball.dataset.animationInterval = animationInterval;
+  ball.dataset.animationInterval = animationInterval; // Save the interval for further cleaning
 }
 
 function stopBallAnimation(ball) {
   if (ball) {
-    clearInterval(ball.dataset.animationInterval);
-    ball.dataset.animationInterval = '';
+    clearInterval(ball.dataset.animationInterval); // stop the animation and fix the ball in a certain position
+    ball.dataset.animationInterval = ''; //indicates that the animation has been stopped and there is no active interval.
   }
 }
 
-function listenForLikeClick() {
-  const likeButtons = document.querySelectorAll('.like');
+function listenForLikeClick() { 
+  const likeButtons = document.querySelectorAll('.like'); //Get all elements in the document that have the like class
 
   likeButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
-      event.stopPropagation(); 
+      event.stopPropagation(); //prevents further propagation of the current event up the DOM
       if (event.target.src.includes('star.png')) {
         event.target.src = './frame.png';
       } else {
@@ -194,20 +191,20 @@ fetchAccessToken();
 const audio = document.querySelector("[data-js='current-track']");
 console.log("audio: ", audio);
 
-const playButton = document.querySelector("[data-js='play']");
+const playButton = document.querySelector("[data-js='play']"); //Getting a link to the buttons
 const pauseButton = document.querySelector("[data-js='pause']");
 
 playButton.addEventListener("click", () => {
   audio.play();
   startWaveAnimation();
 
-  // Продовження анімації м'яча
+  // Continuation of ball animation
   const ball = document.querySelector('.moving-ball');
-  if (ball) {
+  if (ball) { // If the element exists, the current position of the interval animation is set 
     const currentPosition = parseInt(ball.dataset.currentPosition, 10) || 0;
     const animationInterval = ball.dataset.animationInterval;
     if (!animationInterval) {
-      startBallAnimation(ball, currentPosition);
+      startBallAnimation(ball, currentPosition); //  the ball animation starts
     }
   }
 });
@@ -216,16 +213,16 @@ pauseButton.addEventListener("click", () => {
   audio.pause();
   stopWaveAnimation();
 
-  // Зупинка анімації м'яча
+  // Stop the ball animation
   const ball = document.querySelector('.moving-ball');
-  if (ball) {
+  if (ball) { //If the element exists, the ball animation stops and the spacing is cleared.
     clearInterval(ball.dataset.animationInterval);
     ball.dataset.animationInterval = '';
   }
 });
 
 function startWaveAnimation() {
-  const currentTrack = document.querySelector('.highlighted');
+  const currentTrack = document.querySelector('.highlighted'); //Getting the first element on a page with the .highlighted class
   if (currentTrack) {
     const playIcon = currentTrack.querySelector('img[src="./wave.png"]');
     if (playIcon) {

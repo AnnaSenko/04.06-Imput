@@ -109,6 +109,12 @@ function listenForClick() {
       if (pauseButtonImage.src.includes('nopause.png')) {
         pauseButtonImage.src = './pause.png';
       }
+
+      // Почати програвання аудіо з початку
+      const audio = document.querySelector("[data-js='current-track']");
+      audio.src = "https://p.scdn.co/mp3-preview/398665ccd5df24f5b67d2cd96f7ad8586ad8632a?cid=67b411e20d594f30bf7a8d3bbde54285";
+      audio.play();
+      startWaveAnimation();
     });
   });
 

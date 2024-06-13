@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spotify Playlist</title>
+    <script src="2step.js" defer></script>
+    <link rel="stylesheet" href="2step.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="playlist">
+        <div class="content">
+          <div class="left current-track" data-js="current">
+            <h1>My Spotify playlist</h1>
+            <img src="./album.jpg" class="fotoAlbum" alt="Current Track" />
+            <img src="./nomusic.png" class="playerTrack" alt="Current Track" />
+            <audio
+              data-js="current-track"
+              src="https://p.scdn.co/mp3-preview/398665ccd5df24f5b67d2cd96f7ad8586ad8632a?cid=67b411e20d594f30bf7a8d3bbde54285"
+            ></audio>
+            <div class="control-buttons">
+              <button data-js="play" class="player-control">
+                <img src="./noplay.png" alt="play icon" />
+              </button>
+              <button data-js="pause" class="pause-control">
+                <img src="./nopause.png" alt="pause icon" />
+              </button>
+            </div>
+          </div>
+          <div class="right" data-js="tracks">
+            <!-- here we are going to display the fetched tracks -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <img src="./Desktop - 4.png" class="background" />
+  </body>
+</html>

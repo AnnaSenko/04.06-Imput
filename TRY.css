@@ -8,15 +8,15 @@
     animation: wave 1s infinite;
   }
   
-* {
+  * {
     font-family: 'Lexend', sans-serif;
-}
-
-#main {
+  }
+  
+  #main {
     padding: 20px;
-}
-
-.background {
+  }
+  
+  .background {
     height: 100vh;
     width: 100vw;
     object-fit: cover; 
@@ -24,113 +24,113 @@
     top: 0;
     left: 0;
     z-index: -2;
-}
-
-.background-header {
+  }
+  
+  .background-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-     /* z-index: -1; Забезпечуємо, що фон буде нижче з іншими елементами */
-}
-
-.playlist h1 {
+  }
+  
+  .playlist h1 {
     text-align: left;
     font-size: 40px;
-}
-
-.track {
+  }
+  
+  .track {
     display: flex;
     align-items: flex-start;
     padding: 10px;
-}
-
-.track img {
+  }
+  
+  .track img {
     width: 20px;
     height: 20px;
     margin-right: 20px;
     margin-top: 10px;
-}
-
-.track-info {
+  }
+  
+  .track-info {
     flex-grow: 10;
     display: flex;
     flex-direction: column;
     padding: 0 20px 0 0;
-}
-
-.track-info .song {
+  }
+  
+  .track-info .song {
     display: flex;
     flex-direction: raw;
     justify-content: space-between;
-}
-
-.track-info .name {
+  }
+  
+  .track-info .name {
     font-size: 20px;
     font-weight: bold;
     color: #6320EE;
-}
-
-.track-info .album {
+  }
+  
+  .track-info .album {
     font-size: 14px;
     color: #555;
-}
-
-.track-info .time {
+  }
+  
+  .track-info .time {
     font-size: 12px;
     color: #999;
     align-items: flex-end;
-}
-
-.track-info .plays {
+  }
+  
+  .track-info .plays {
     font-size: 12px;
     color: #999;
-}
-
-.track-info .like {
+  }
+  
+  .track-info .like {
     width: 70px;
     height: 43px;
     align-items: flex-end;
-}
-
-.lineSong {
+  }
+  
+  .lineSong {
     display: inline;
     flex-direction: row;
-}
-
-.content {
+  }
+  
+  .content {
     display: flex;
-}
-
-.right {
+  }
+  
+  .right {
     flex: 0 1 45%;
     margin-top: 160px;
     margin-left: 700px;
-}
-
-.left.current-track {
+  }
+  
+  .left.current-track {
     position: fixed;
     top: 80px; 
     left: 190px; 
     width: 380px; 
     z-index: 1000; 
-}
-
-.fotoAlbum {
+  }
+  
+  .fotoAlbum {
     width: 300px;
     height: 300px;
     margin-top: 20px;
     text-align: center;
-}
-
-.playerTrack {
+  }
+  
+  .playerTrack {
     margin-top: 40px;
     width: 300px;
     height: 13.75px;
     text-align: center;
-}
-
-.control-buttons {
+    position: relative; /* додано для руху ball.png */
+  }
+  
+  .control-buttons {
     display: flex;
     margin-left: 105px;
     margin-top: 10px;
@@ -164,8 +164,9 @@
   .highlighted {
     border-radius: 10px;
     background-color: #F9CFF2;
-}
-.notifications {
+  }
+  
+  .notifications {
     position: fixed;
     top: 30px;
     right: 30px;
@@ -173,27 +174,34 @@
     align-items: center;
     flex-direction: row;
     gap: 15px;
-}
-
-.notifications .icon {
+  }
+  
+  .notifications .icon {
     width: 25px;
     height: 25px;
-}
-
-.notifications .bell {
+  }
+  
+  .notifications .bell {
     width: 23px;
     height: 23px;
-}
-
-.notifications .search {
+  }
+  
+  .notifications .search {
     width: 238.85px;
     height: 20px;
     margin-right: 390px;
-}
-
-.notifications .logo {
+  }
+  
+  .notifications .logo {
     width: 20px;
     height: 20px;
     margin-right: 640px;
-}
-
+  }
+  
+  .moving-ball {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 474px;
+    transform: translateY(-50%);
+  }

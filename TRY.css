@@ -2,7 +2,6 @@
     font-family: 'Lexend', sans-serif;
 }
 
-
 #main {
     padding: 20px;
 }
@@ -15,8 +14,8 @@
     top: 0;
     left: 0;
     z-index: -1;
-  }
-  
+}
+
 .playlist h1 {
     text-align: left;
     font-size: 40px;
@@ -41,6 +40,7 @@
     flex-direction: column;
     padding: 0 20px 0 0;
 }
+
 .track-info .song {
     display: flex;
     flex-direction: raw;
@@ -75,41 +75,75 @@
     align-items: flex-end;
 }
 
-.lineSong{
+.lineSong {
     display: inline;
     flex-direction: row;
 }
+
 .content {
     display: flex;
 }
+
 .right {
     flex: 0 1 45%;
-    margin-top: 160px;
+    margin-top: 110px;
     margin-left: 700px;
 }
 
 .left.current-track {
     position: fixed;
-    top: 50px; /* Можете змінити це значення відповідно до ваших потреб */
-    left: 190px; /* Можете змінити це значення відповідно до ваших потреб */
-    width: 500px; /* Фіксуємо ширину, щоб зображення залишалось в межах контейнера */
-    z-index: 1000; /* Щоб елемент був над іншими елементами */
+    top: 50px; 
+    left: 190px; 
+    width: 380px; 
+    z-index: 1000; 
 }
 
-.fotoAlbum{
+.fotoAlbum {
     width: 300px;
     height: 300px;
     margin-top: 50px;
     text-align: center;
 }
+
 .playerTrack {
     margin-top: 40px;
     width: 300px;
-    height: 74.35px;
+    height: 13.75px;
     text-align: center;
 }
 
-.highlighted {
+.control-buttons {
+    display: flex;
+    margin-left: 105px;
+    margin-top: 10px;
+  }
+  
+  .player-control,
+  .pause-control {
+    background-color: transparent;
+    border: 0;
+  }
+  
+  .player-control:hover,
+  .pause-control:hover {
+    cursor: pointer;
+    color: grey;
+  }
+  
+  .player-control:hover img,
+  .pause-control:hover img {
+    transform: scale(1.3);
+  }
+  
+  .player-control img,
+  .pause-control img {
+    height: 30px;
+    width: 30px;
+    transition: all 0.3s;
+    padding-right: 10px;
+  }
+  
+  .highlighted {
     border-radius: 10px;
     background-color: #F9CFF2;
-  }
+}

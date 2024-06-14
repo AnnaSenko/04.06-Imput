@@ -1,18 +1,18 @@
 const SPOTIFY_CLIENT_ID = "67b411e20d594f30bf7a8d3bbde54285";
 const SPOTIFY_CLIENT_SECRET = "161fc5e3df004b95af3ba8c62f3eaf54";
-const PLAYLIST_ID = "7fXKDSXrj7RljWC4QTixrd";
+const PLAYLIST_ID = "37i9dQZF1E4m0uHm6DE1DC";
 const container = document.querySelector('div[data-js="tracks"]');
 
 function fetchPlaylist(token, playlistId) {
   console.log("token: ", token);
 
-  fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, { // making a GET request to the Spotify API 
+  fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {  
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
-    .then((response) => response.json()) //Processing the server response
+    .then((response) => response.json()) 
     .then((data) => {
       console.log(data);
 
@@ -29,16 +29,16 @@ function fetchPlaylist(token, playlistId) {
     });
 }
 
-function addTracksToPage(tracks) { //a function that takes one parameter tracks (a list of tracks)
+function addTracksToPage(tracks) { 
   const container = document.querySelector('[data-js="tracks"]');
 
   tracks.forEach((item, index) => {
     const track = item.track;
-    const trackElement = document.createElement('div'); //A new div element with the track class is created for each track in the list
+    const trackElement = document.createElement('div'); 
     trackElement.classList.add('track');
 
     trackElement.innerHTML = `
-      <img src="./play.png" alt="Play Icon" data-original-src="${track.album.images[0].url}">
+      <img src="./img/play.png" alt="Play Icon" data-original-src="${track.album.images[0].url}">
       <div class="track-info">
         <div class="album">${track.album.name}</div>
         <div class="song">
@@ -46,7 +46,7 @@ function addTracksToPage(tracks) { //a function that takes one parameter tracks 
           <div class="time">${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</div>
         </div> 
       </div>
-      <img src="./star.png" class="like" alt="Like">
+      <img src="./img/star.png" class="like" alt="Like">
     `;
 
     container.appendChild(trackElement);
@@ -56,41 +56,41 @@ function addTracksToPage(tracks) { //a function that takes one parameter tracks 
 }
 
 function listenForClick() {
-  const items = document.querySelectorAll('.track'); // Gets all elements with the track class from the DOM 
-  let currentBall = null; // a variable that will be used to animate the ball 
+  const items = document.querySelectorAll('.track');  
+  let currentBall = null;  
 
   items.forEach((item, index) => {
-    item.addEventListener("click", (event) => { // Adds an event listener for each track. 
-      items.forEach(track => track.classList.remove('highlighted')); //Removes the highlighted class from all tracks.
-      item.classList.add('highlighted'); // Highlight only the selected track
+    item.addEventListener("click", (event) => { 
+      items.forEach(track => track.classList.remove('highlighted')); 
+      item.classList.add('highlighted'); 
 
-      const trackImageElement = item.querySelector('img[data-original-src]'); //Gets the album image for the selected track.
+      const trackImageElement = item.querySelector('img[data-original-src]'); 
       const currentTrackImageElement = document.querySelector('[data-js="current"] img');
 
-      currentTrackImageElement.src = trackImageElement.dataset.originalSrc; // Changes the image of the current track to the image of the selected track.
+      currentTrackImageElement.src = trackImageElement.dataset.originalSrc; 
 
-      const playIcon = item.querySelector('img[src="./play.png"]'); // Changes the play.png icon to wave.png and adds an animation class for the clicked track.
+      const playIcon = item.querySelector('img[src="./img/play.png"]'); 
       if (playIcon) {
-        playIcon.src = './wave.png';
+        playIcon.src = './img/wave.png';
         playIcon.classList.add('animated-wave');
       }
 
-      items.forEach(track => { //Changes the wave.png icon back to play.png for all other tracks, removing the animation class.
+      items.forEach(track => { 
         if (track !== item) {
-          const otherPlayIcon = track.querySelector('img[src="./wave.png"]');
+          const otherPlayIcon = track.querySelector('img[src="./img/wave.png"]');
           if (otherPlayIcon) {
-            otherPlayIcon.src = './play.png';
+            otherPlayIcon.src = './img/play.png';
             otherPlayIcon.classList.remove('animated-wave');
           }
         }
       });
 
-      const playerImage = document.querySelector('.playerTrack');// Change the photo nomusic.png to music.png
+      const playerImage = document.querySelector('.playerTrack');
       if (playerImage.src.includes('nomusic.png')) {
-        playerImage.src = './music.png';
+        playerImage.src = './img/music.png';
       }
 
-      // Stops the animation of the current ball and removes it from the DOM.
+      // Stops the animation of the current ball 
       if (currentBall) {
         stopBallAnimation(currentBall);
         currentBall.remove();
@@ -98,28 +98,26 @@ function listenForClick() {
 
       // Creates a new ball and adds it to the DOM.
       currentBall = document.createElement('img');
-      currentBall.src = './ball.png';
+      currentBall.src = './img/ball.png';
       currentBall.classList.add('moving-ball'); 
       playerImage.parentElement.appendChild(currentBall);
 
-      // Starts the animation of a new ball.
       startBallAnimation(currentBall);
 
       const playButtonImage = document.querySelector('[data-js="play"] img');
       const pauseButtonImage = document.querySelector('[data-js="pause"] img');
 
-      if (playButtonImage.src.includes('noplay.png')) { // Change the photo noplay.png to play.png and nopause.png to pause.png      
-        playButtonImage.src = './play.png';
+      if (playButtonImage.src.includes('noplay.png')) {       
+        playButtonImage.src = './img/play.png';
       }
       if (pauseButtonImage.src.includes('nopause.png')) {
-        pauseButtonImage.src = './pause.png';
+        pauseButtonImage.src = './img/pause.png';
       }
 
-      // Selects an audio source and starts playback.
       const audio = document.querySelector("[data-js='current-track']");
       audio.src = "https://p.scdn.co/mp3-preview/398665ccd5df24f5b67d2cd96f7ad8586ad8632a?cid=67b411e20d594f30bf7a8d3bbde54285";
       audio.play();
-      startWaveAnimation(); // Starts the wave animation for the current track.
+      startWaveAnimation(); 
     });
   });
 
@@ -127,42 +125,42 @@ function listenForClick() {
 }
 
 function startBallAnimation(ball, startPosition = 0) {
-  const playerImage = document.querySelector('.playerTrack'); //Find an element with the .playerTrack class in the DOM and store it in the playerImage variable 
-  const maxPosition = playerImage.clientWidth - 10; // Calculating the maximum ball position given the size
+  const playerImage = document.querySelector('.playerTrack'); 
+  const maxPosition = playerImage.clientWidth - 10; 
 
   let position = startPosition;
-  ball.style.left = `${position}px`; // Sets the initial style for the ball
+  ball.style.left = `${position}px`; 
 
   // The ball moves 5 pixels to the right every 500ms. 
-  const animationInterval = setInterval(() => { // the function is run once per defined interval
-    position += 5; // changed by 5 pixels
-    if (position > maxPosition) { // If it reaches the maximum position, it resets to the starting position (0).
+  const animationInterval = setInterval(() => { 
+    position += 5; 
+    if (position > maxPosition) { 
       position = 0;
     }
-    ball.style.left = `${position}px`; //// Updates the style for the new position
-    ball.dataset.currentPosition = position; //Keeps the current position
+    ball.style.left = `${position}px`; 
+    ball.dataset.currentPosition = position; 
   }, 500);
 
-  ball.dataset.animationInterval = animationInterval; // Save the interval to allow stopping the animation later.
+  ball.dataset.animationInterval = animationInterval; 
 }
 
 function stopBallAnimation(ball) {
   if (ball) {
-    clearInterval(ball.dataset.animationInterval); // stop the animation and fix the ball in a certain position
-    ball.dataset.animationInterval = ''; //indicates that the animation has been stopped and there is no active interval.
+    clearInterval(ball.dataset.animationInterval); 
+    ball.dataset.animationInterval = ''; 
   }
 }
 
 function listenForLikeClick() { 
-  const likeButtons = document.querySelectorAll('.like'); //Get all elements in the document that have the like class
+  const likeButtons = document.querySelectorAll('.like'); 
 
   likeButtons.forEach((button) => {
     button.addEventListener('click', (event) => {
-      event.stopPropagation(); //prevents further propagation of the current event up the DOM
+      event.stopPropagation(); 
       if (event.target.src.includes('star.png')) {
-        event.target.src = './frame.png';
+        event.target.src = './img/frame.png';
       } else {
-        event.target.src = './star.png';
+        event.target.src = './img/star.png';
       }
     });
   });
@@ -192,7 +190,7 @@ fetchAccessToken();
 const audio = document.querySelector("[data-js='current-track']");
 console.log("audio: ", audio);
 
-const playButton = document.querySelector("[data-js='play']"); //Getting a link to the buttons
+const playButton = document.querySelector("[data-js='play']"); 
 const pauseButton = document.querySelector("[data-js='pause']");
 
 playButton.addEventListener("click", () => {
@@ -200,15 +198,12 @@ playButton.addEventListener("click", () => {
   startWaveAnimation();
 
   // Continuation of ball animation
-  const ball = document.querySelector('.moving-ball'); //finding the first element in a document with the moving-ball class
-  if (ball) { // If the element exists, the current position of the interval animation is set 
-    /*The data-current-position value stores the current horizontal position of the ball in pixels. 
-    The parseInt function converts this value from a string to an integer, 
-    and the second argument 10 indicates that the decimal system is used.*/ 
+  const ball = document.querySelector('.moving-ball'); 
+  if (ball) { 
     const currentPosition = parseInt(ball.dataset.currentPosition, 10) || 0; 
     const animationInterval = ball.dataset.animationInterval;
-    if (!animationInterval) {c//If the interval is not running (animationInterval is not set)
-      startBallAnimation(ball, currentPosition); //  the ball animation starts
+    if (!animationInterval) {
+      startBallAnimation(ball, currentPosition); 
     }
   }
 });
@@ -219,16 +214,16 @@ pauseButton.addEventListener("click", () => {
 
   // Stop the ball animation
   const ball = document.querySelector('.moving-ball');
-  if (ball) { //If the element exists, the ball animation stops and the spacing is cleared.
+  if (ball) { 
     clearInterval(ball.dataset.animationInterval);
     ball.dataset.animationInterval = '';
   }
 });
 
 function startWaveAnimation() {
-  const currentTrack = document.querySelector('.highlighted'); //Getting the first element on a page with the .highlighted class
+  const currentTrack = document.querySelector('.highlighted'); 
   if (currentTrack) {
-    const playIcon = currentTrack.querySelector('img[src="./wave.png"]');
+    const playIcon = currentTrack.querySelector('img[src="./img/wave.png"]');
     if (playIcon) {
       playIcon.classList.add('animated-wave');
     }

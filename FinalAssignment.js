@@ -57,7 +57,7 @@ function addTracksToPage(tracks) { //a function that takes one parameter tracks 
 
 function listenForClick() {
   const items = document.querySelectorAll('.track'); // Gets all elements with the track class from the DOM 
-  let currentBall = null; // a variable that will be used to animate the ball. 
+  let currentBall = null; // a variable that will be used to animate the ball 
 
   items.forEach((item, index) => {
     item.addEventListener("click", (event) => { // Adds an event listener for each track. 
@@ -127,22 +127,23 @@ function listenForClick() {
 }
 
 function startBallAnimation(ball, startPosition = 0) {
-  const playerImage = document.querySelector('.playerTrack'); //Find an element with the .playerTrack class in the DOM and store it in the playerImage variable to calculate the maximum position of the ball.
+  const playerImage = document.querySelector('.playerTrack'); //Find an element with the .playerTrack class in the DOM and store it in the playerImage variable 
   const maxPosition = playerImage.clientWidth - 10; // Calculating the maximum ball position given the size
 
   let position = startPosition;
-  ball.style.left = `${position}px`; // Setting the styles of the ball element, which determines its horizontal position on the page. 
+  ball.style.left = `${position}px`; // Sets the initial style for the ball
 
+  // The ball moves 5 pixels to the right every 500ms. 
   const animationInterval = setInterval(() => { // the function is run once per defined interval
-    position += 5; // changed by 10 pixels
-    if (position > maxPosition) {
+    position += 5; // changed by 5 pixels
+    if (position > maxPosition) { // If it reaches the maximum position, it resets to the starting position (0).
       position = 0;
     }
-    ball.style.left = `${position}px`; //Update styles to show the updated position on the page.
-    ball.dataset.currentPosition = position; 
+    ball.style.left = `${position}px`; //// Updates the style for the new position
+    ball.dataset.currentPosition = position; //Keeps the current position
   }, 500);
 
-  ball.dataset.animationInterval = animationInterval; // Save the interval for further cleaning
+  ball.dataset.animationInterval = animationInterval; // Save the interval to allow stopping the animation later.
 }
 
 function stopBallAnimation(ball) {
@@ -199,11 +200,14 @@ playButton.addEventListener("click", () => {
   startWaveAnimation();
 
   // Continuation of ball animation
-  const ball = document.querySelector('.moving-ball');
+  const ball = document.querySelector('.moving-ball'); //finding the first element in a document with the moving-ball class
   if (ball) { // If the element exists, the current position of the interval animation is set 
-    const currentPosition = parseInt(ball.dataset.currentPosition, 10) || 0;
+    /*The data-current-position value stores the current horizontal position of the ball in pixels. 
+    The parseInt function converts this value from a string to an integer, 
+    and the second argument 10 indicates that the decimal system is used.*/ 
+    const currentPosition = parseInt(ball.dataset.currentPosition, 10) || 0; 
     const animationInterval = ball.dataset.animationInterval;
-    if (!animationInterval) {
+    if (!animationInterval) {c//If the interval is not running (animationInterval is not set)
       startBallAnimation(ball, currentPosition); //  the ball animation starts
     }
   }
